@@ -1,0 +1,120 @@
+<div class="card">
+    <div>
+        <button type="submit" (click)="openAddProdModal('addProductModal')">Add New Product</button>
+    </div>
+    <h5>Products</h5>
+    <p-table #dt1 [value]="productsList" dataKey="pName" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers p-datatable-gridlines" [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [globalFilterFields]="['pName'']" sortMode="multiple">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="pName">Name
+                    <p-sortIcon field="pName"></p-sortIcon>
+                </th>
+                <th pSortableColumn="model">Model
+                    <p-sortIcon field="model"></p-sortIcon>
+                </th>
+                <th pSortableColumn="fabric">Fabric
+                    <p-sortIcon field="fabric"></p-sortIcon>
+                </th>
+                <th pSortableColumn="price">Price
+                    <p-sortIcon field="price"></p-sortIcon>
+                </th>
+                <th pSortableColumn="manufacturer">Manufacturer
+                    <p-sortIcon field="manufacturer"></p-sortIcon>
+                </th>
+                <th pSortableColumn="dateOfManufacture">Date of Manufacturer
+                    <p-sortIcon field="dateOfManufacture"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>{{product.pName}}</td>
+                <td>{{product.model}}</td>
+                <td>{{product.fabric}}</td>
+                <td>{{product.price | currency: 'USD'}}</td>
+                <td>{{product.manufacturer}}</td>
+                <td>{{product.dateOfManufacture }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<ng-template #addProductModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">
+            Add New Product
+        </h4>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]='addProductForm' autocomplete="off">
+            <table>
+                <caption></caption>
+                <tr>
+                    <th>Product Name</th>
+                    <td>
+                        <input type="text" formControlName='pName' class="form-control">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Product Name</th>
+                    <td>
+                        <input type="text" formControlName='pName' class="form-control">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Model</th>
+                    <td>
+                        <input type="text" formControlName='model' class="form-control">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Fabric</th>
+                    <td>
+                        <p-dropdown [options]="fabric" placeholder="Select fabric" [showClear]="true" [filter]="true" [panelStyle]="{width:'100px'}" formControlName='fabric'>
+                        </p-dropdown>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Price</th>
+                    <td>
+                        <input type="string" formControlName='price' class="form-control">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Manufacturer</th>
+                    <td>
+                        <p-dropdown [options]="manufacturer" placeholder="Select manufacturer" [showClear]="true" [filter]="true" [panelStyle]="{width:'100px'}" formControlName='fabric'>
+                        </p-dropdown>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Date of Manufacure</th>
+                    <td>
+                        <input type="date" formControlName='dateOfManufacture' class="form-control">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div>
+            <div *ngIf="errMsg">
+                <div class="text-danger">
+                    {{errMsg}}
+                </div>
+            </div>
+            <div>
+                <button type="submit" (click)='addProduct(modal)' [disabled]='addProductForm.invalid'>Save</button>&nbsp;&nbsp;
+                <button type="submit" (click)='closeAddProdModal(modal)'>Close</button>
+            </div>
+        </div>
+    </div>
+
+</ng-template>
+<router-outlet></router-outlet>

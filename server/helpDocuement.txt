@@ -1,0 +1,13 @@
+1.API's 
+    http://localhost:3000/products/all  -->get call to fetch all products
+    http://localhost:3000/products/:productName  -->get call to fetch product with name (productName-->specifies product name in the url)
+    http://localhost:3000/products/add  -->post call to save product details into database
+
+2.After unzipping the project run 'npm install' command inside both client and server folder to install all dependencies.
+
+3.to create database instance with mongo db already set up --> run a command 'mongorestore' in the command promt where dump folder is present.
+
+4.Command to start server 'node app.js'
+
+5.Command to start client application 'ng s --o'
+     
